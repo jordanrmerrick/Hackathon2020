@@ -1,8 +1,9 @@
-from flask import Flask, request, render_template, abort, url_for
+from flask import Flask, request, render_template
 import processor
 from calculations import Closest_boxes
 from dbi import select_voter_links, create_connection
 from api import poll_locs, parse_polls
+import sys
 
 
 def full_dict(address, key):
@@ -11,7 +12,6 @@ def full_dict(address, key):
 
     # Getting voter registration links from the database. This returns [state, registration, onlinereg(optional), registration_check(optional)]
     voter_links = select_voter_links(conn, state)[0]
-    print(voter_links)
     if voter_links[2] == "404" and voter_links[3] == "404":
         links = {"Register to Vote": voter_links[1]}
     elif voter_links[2] == "404":
@@ -41,28 +41,18 @@ def my_form():
     return render_template('vip.html')
 
 @app.route('/', methods=['POST'])
-def my_form_post():
+def my_form_post(key=sys.argv[1]):
+    if len(sys.argv) == 1:
+        raise KeyError("Too few arguments supplied")
+    if len(sys.argv) > 2:
+        raise KeyError("Too many arguments supplied")
+
     text = request.form['text']
     ppx = processor.address_checker(text)
     if ppx[1] == 0:
-        return render_template('info.html', text=full_dict(ppx[0], "key"))
+        return render_template('info.html', text=full_dict(ppx[0], key))
     else:
         return ppx
 
-"""@app.route('/info', methods=['POST', 'GET'])
-def info():
-    result = request.form
-    return render_template('info.html', result=result)"""
-
 if __name__ == '__main__':
     app.run()
-
-"""
-Idea
-
-Creating a flask-based website that allows people to check if they're registered to vote,
-and where their closest polling place(s) are. It will also show you where your closest USPS mailbox is.
-
-Pulls info from an SQLite database!
-
-"""

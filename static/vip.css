@@ -1,0 +1,52 @@
+#body {
+    font-family: Helvetica;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#intro_extended {
+  overflow: visible;
+  text-overflow: ellipsis;
+  max-width: 400px;
+    text-align: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+}
+#intro_title {
+    font-family: Monaco;
+    text-align: center;
+    font: bold;
+
+}
+
+#enter-address {
+    text-align: center;
+    text-align: center;
+
+}
+
+#address_box {
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    align-self: center;
+    height: 38px;
+    text-align: center;
+    margin-left: 20%
+}
+
+#address_submit {
+    width: 20%;
+    padding: 10px 10px;
+    background-color: firebrick;
+    color: ghostwhite;
+    border: 0;
+    height: 38px;
+}

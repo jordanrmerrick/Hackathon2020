@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Voter_Information_Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='vip.css') }}">
 </head>
 <nav id="navbar">
-
 </nav>
-<body>
+<body id="body">
     <h1 id="intro_title">
         Voter Information Project
     </h1>
@@ -24,12 +24,12 @@
                 <li>Give you any other useful information you need to know.</li>
             </ul>
         </p>
-        <p>Enter your address below to find out more!</p>
+        <b id="enter-address">Enter your address below to find out more!</b>
     </div>
     <div class="address_search">
         <form method="POST">
-            <input name="text" id="address_box">
-            <input type="submit" id="address_submit">
+            <input name="text" id="address_box" class="input">
+            <input type="submit" id="address_submit" class="input">
         </form>
     </div>
 

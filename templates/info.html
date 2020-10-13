@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='info.css') }}">
 </head>
-<body>
+<body class="main">
     <h1>Voter Information</h1>
-    <div>
+    <div id="">
         <h3>Voter Registration</h3>
         <ul>
             {% for head, body in text["voter_links"].items() %}
@@ -18,7 +19,6 @@
         <h3>Your Polling Stations</h3>
         <ul>
             {% for i, v in text["polling_locations"]["polling_stations"].items() %}
-            <ul>
             <li> {{ v["name"] }}</li>
                 <ul>
                     <li> {{ i }} </li>
@@ -30,7 +30,6 @@
                     <li>{{ h }}: {{ t }}</li>
                     {% endfor %}
                 </ul>
-            </ul>
             {% endfor %}
         </ul>
         <div id="ps_map">
