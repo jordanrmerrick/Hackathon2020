@@ -11,10 +11,10 @@ From there it will give a bunch of useful info, including registration info for 
 It does this through rendered templates, an awesome feature in flask which allows you to change your webpage dynamically.
 
 ## To-Do
- [ ] Build the actual webpage
+ - [ ] Build the actual webpage
 
- [ ] Implement a static map from [Google's Map API](https://developers.google.com/maps/documentation/maps-static/overview) so that you can see mailboxes near you
+ - [ ] Implement a static map from [Google's Map API](https://developers.google.com/maps/documentation/maps-static/overview) so that you can see mailboxes near you
  
- [ ] Put in the CSS to make it look nice, change the font, add nice colors, etc
+ - [ ] Put in the CSS to make it look nice, change the font, add nice colors, etc
  
- [ ] Add some JS to make it look even nicer? I can do this with OCaml and compile it to JS bytecode since I don't know any JS
+ - [ ] Add some JS to make it look even nicer? I can do this with OCaml and compile it to JS bytecode since I don't know any JS
