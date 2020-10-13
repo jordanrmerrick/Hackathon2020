@@ -72,15 +72,22 @@ class Closest_boxes(object):
 
     def create_address(self):
         box_locs = self.closest_boxes()
-        box_locs.reverse()
-        ret = {}
-        for box in box_locs:
-            box_ = box[0]
-            addr = box_[1]
-            city = box_[2]
-            state = box_[3]
-            zipcode = box_[4]
-            full = "{}, {}, {}, {}".format(addr, city, state, zipcode)
-            ret[full] = (box_[-2], box_[-1])
+        print(box_locs)
+        if len(box_locs) == 0:
+            return {"No boxes found": ""}
+        else:
+            box_locs.reverse()
+            ret = {}
+            for box in box_locs:
+                if len(box) == 0:
+                    ret["No close boxes found. Please visit https://mailboxlocate.com/ to find your nearest mailbox"] = ""
+                    continue
+                box_ = box[0]
+                addr = box_[1]
+                city = box_[2]
+                state = box_[3]
+                zipcode = box_[4]
+                full = "{}, {}, {}, {}".format(addr, city, state, zipcode)
+                ret[full] = (box_[-2], box_[-1])
 
-        return ret
+            return ret

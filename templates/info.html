@@ -7,9 +7,72 @@
 <body>
     <h1>Voter Information</h1>
     <div>
-        <p>
-
-        </p>
+        <h3>Voter Registration</h3>
+        <ul>
+            {% for head, body in text["voter_links"].items() %}
+            <li><a href={{ body }}>{{ head }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h3>Your Polling Stations</h3>
+        <ul>
+            {% for i, v in text["polling_locations"]["polling_stations"].items() %}
+            <ul>
+            <li> {{ v["name"] }}</li>
+                <ul>
+                    <li> {{ i }} </li>
+                </ul>
+                <br>
+                <ul>
+                    <b>Election Day Hours</b>
+                    {% for h, t in v["time"].items() %}
+                    <li>{{ h }}: {{ t }}</li>
+                    {% endfor %}
+                </ul>
+            </ul>
+            {% endfor %}
+        </ul>
+        <div id="ps_map">
+            <!-- Google Maps insert should go here -->
+        </div>
+        <ul id="ps_hours">
+            <li></li>
+        </ul>
+        <p id="polling_address"></p>
+    </div>
+    <div>
+        <h3>You Can Vote Early Here</h3>
+        <ul id="early_voting">
+            {% for key, value in text["polling_locations"]["early_voting"].items() %}
+            <ul>
+            <li> {{ value["name"] }}</li>
+                <ul>
+                <li> {{ key }}</li>
+                <ul>
+                    <b>Hours</b>
+                    {% for k, v in value["time"].items() %}
+                    <li>{{ k }}: {{ v }}</li>
+                    {% endfor %}
+                </ul>
+                </ul>
+            </ul>
+            {% endfor %}
+            <!-- Figure out how to fill out a list with flask -->
+        </ul>
+    </div>
+    <div>
+        <h3>Your Nearest USPS Boxes</h3>
+        <div id="box_map">
+            <!-- Google maps insert should go here -->
+        </div>
+        <ul id="boxes">
+            <ul>
+                {% for address in text["boxes"].keys() %}
+                <li>{{ address }}</li>
+                {% endfor %}
+            </ul>
+        </ul>
     </div>
 </body>
 </html>

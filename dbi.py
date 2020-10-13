@@ -1,13 +1,15 @@
 import sqlite3 as sql
 from sqlite3 import Error
 
+
 def create_connection(db_filename):
-    conn = None
     try:
         conn = sql.connect(db_filename)
     except Error as e:
-        print(e)
+        return "500", e
+
     return conn
+
 
 def create_table(conn):
     command = """CREATE TABLE IF NOT EXISTS usps (id text PRIMARY KEY, streetaddress TEXT, city text, state text, zip text, collection1 text, collection2 text, collection3 text, collection4 text, collection5 text, collection6 text, collection7 text, latitude text, longitude text)"""
@@ -15,7 +17,8 @@ def create_table(conn):
         cur = conn.cursor()
         cur.execute(command)
     except Error as e:
-        print(e)
+        return "500", e
+
 
 def create_table_votelinks(conn):
     command = """CREATE TABLE IF NOT EXISTS voterlinks (state text PRIMARY KEY, voter text, mailin text, status text)"""
@@ -23,7 +26,7 @@ def create_table_votelinks(conn):
         cur = conn.cursor()
         cur.execute(command)
     except Error as e:
-        print(e)
+        return "500", e
 
 
 def select_from_zip(conn, zip):
@@ -33,7 +36,7 @@ def select_from_zip(conn, zip):
         rows = cur.fetchall()
         return rows
     except Error as e:
-        print(e)
+        return "500", e
 
 
 def select_from_id(conn, id):
@@ -43,4 +46,16 @@ def select_from_id(conn, id):
         rows = cur.fetchall()
         return rows
     except Error as e:
-        print(e)
+        return "500", e
+
+
+def select_voter_links(conn, state):
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM voterlinks WHERE state=?", (state,))
+        rows = cur.fetchall()
+        return rows
+    except Error as e:
+        return "500", e
+
+

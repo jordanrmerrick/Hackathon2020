@@ -1,12 +1,14 @@
 from bs4 import BeautifulSoup
+from dbi import create_connection
 import requests
 import re
+
 
 def scraper():
 
     ret = {}
 
-    states = ['al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de', 'fl', 'ha', 'hi', 'id', 'il', 'in', 'ia', 'ks', 'ky',
+    states = ['al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de', 'fl', 'ga', 'hi', 'id', 'il', 'in', 'ia', 'ks', 'ky',
               'la', 'me', 'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'nc', 'ne', 'nh', 'nj', 'nm', 'nv', 'ny', 'nd',
               'oh', 'ok', 'or', 'pa', 'ri', 'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy']
 
@@ -35,5 +37,21 @@ def scraper():
     return ret
 
 
+def db_format(info):
+    conn = create_connection("fulldata.sqlite")
+    cur = conn.cursor()
+    for state in info.keys():
+        links = info[state]
+        if len(links) == 1:
+            cur.execute("INSERT INTO voterlinks VALUES (?, ?, ?, ?)", (state, links[0], "404", "404"))
+        elif len(links) == 2:
+            cur.execute("INSERT INTO voterlinks VALUES (?, ?, ?, ?)", (state, links[0], "404", links[1]))
+        else:
+            print(state)
+            print(len(links))
+            print(links)
+            cur.execute("INSERT INTO voterlinks VALUES (?, ?, ?, ?)", (state, links[0], links[1], links[2]))
+    conn.commit()
+    conn.close()
 
-print(scraper())
+db_format(scraper())
