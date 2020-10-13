@@ -10,4 +10,8 @@ The website takes very little user input, just a valid address.
 From there it will give a bunch of useful info, including registration info for your state, your polling place, where you can vote early, and where the 3 closest USPS boxes are to mail-in your ballot.
 It does this through rendered templates, an awesome feature in flask which allows you to change your webpage dynamically.
 
-
+## To-Do
+ [ ] Build the actual webpage
+ [ ] Implement a static map from [Google's Map API](https://developers.google.com/maps/documentation/maps-static/overview) so that you can see mailboxes near you
+ [ ] Put in the CSS to make it look nice, change the font, add nice colors, etc
+ [ ] Add some JS to make it look even nicer? I can do this with OCaml and compile it to JS bytecode since I don't know any JS
