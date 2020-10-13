@@ -45,7 +45,7 @@ def my_form_post():
     text = request.form['text']
     ppx = processor.address_checker(text)
     if ppx[1] == 0:
-        return render_template('info.html', text=full_dict(ppx[0], "AIzaSyCpU_v3EsEQKgAWQXmRBAF_6rr36wFFgMY"))
+        return render_template('info.html', text=full_dict(ppx[0], "key"))
     else:
         return ppx
 
